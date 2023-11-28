@@ -48,7 +48,4 @@ binary_tree_t *binary_tree_uncle(binary_tree_t *node);
 
 /*==========================Function to print Binary Tree================================*/
 void binary_tree_print(const binary_tree_t *tree);
-static size_t _height(const binary_tree_t *tree);
-static int print_t(const binary_tree_t *tree, int offset, int depth, char **s);
-
 #endif
