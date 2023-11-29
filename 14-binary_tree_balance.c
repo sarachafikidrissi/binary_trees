@@ -1,42 +1,54 @@
 #include "binary_trees.h"
-/**
- * binary_tree_balance - A function that measures the balance
- * factor of a binary tree
- * @tree: a pointer to the root node of the tree to measure the balance factor
- * Return: 0 if NULL, otherwise factor balance
-*/
-int binary_tree_balance(const binary_tree_t *tree)
-{
-	size_t left_height = 0, right_height = 0;
 
-	if (!tree)
+/**
+ * recursive_height - measures the height of a binary tree
+ *
+ * @tree: tree root
+ * Return: height
+ */
+size_t recursive_height(const binary_tree_t *tree)
+{
+	size_t left = 0;
+	size_t right = 0;
+
+	if (tree == NULL)
 		return (0);
 
-	left_height = binary_tree_height(tree->left);
-	right_height = binary_tree_height(tree->right);
-	return (left_height - right_height);
+	left = recursive_height(tree->left);
+	right = recursive_height(tree->right);
+
+	if (left > right)
+		return (left + 1);
+
+	return (right + 1);
 }
 
 /**
- * binary_tree_height - A function that measures the height of a binary tree
- * @tree: pointer to the root node of the tree to measure the height.
- * Return: height of tree , 0 if NULL
-*/
-size_t binary_tree_height(const binary_tree_t *tree)
+ * tree_height - calls recursive_height to return the height
+ * of a binary tree
+ *
+ * @tree: tree root
+ * Return: height of the tree or 0 if tree is NULL;
+ */
+size_t tree_height(const binary_tree_t *tree)
 {
-	size_t left_height = 0;
-	size_t right_height = 0;
+	if (tree == NULL)
+		return (-1);
 
-	if (!tree)
+	return (recursive_height(tree) - 1);
+}
+
+/**
+ * binary_tree_balance - calls recursive_balance to return the balance
+ * of a binary tree
+ *
+ * @tree: tree root
+ * Return: balance factor of the tree or 0 if tree is NULL;
+ */
+int binary_tree_balance(const binary_tree_t *tree)
+{
+	if (tree == NULL)
 		return (0);
 
-	if (tree->left)
-		left_height += 1 + binary_tree_height(tree->left);
-	if (tree->right)
-		right_height += 1 + binary_tree_height(tree->right);
-
-	if (left_height > right_height)
-		return (left_height);
-	else
-		return (right_height);
+	return (tree_height(tree->left) - tree_height(tree->right));
 }
