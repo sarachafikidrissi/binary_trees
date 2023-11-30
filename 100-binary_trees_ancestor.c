@@ -8,7 +8,6 @@
  * Return: pointer to the common ancesstor
 */
 
-
 binary_tree_t *binary_trees_ancestor(const binary_tree_t *first, const binary_tree_t *second)
 {
 	const binary_tree_t *temp_first = first;
@@ -41,5 +40,8 @@ binary_tree_t *binary_trees_ancestor(const binary_tree_t *first, const binary_tr
 		j--;
 	}
 
-	return (i < x) ? path_first[i] : NULL;
+	if (i < x)
+		return path_first[i];
+	else
+		return NULL;
 }
